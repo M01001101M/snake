@@ -7,9 +7,10 @@
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            align-items: center+100;
-            height: 80vh;
+            align-items: center;
+            height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
         }
@@ -17,10 +18,42 @@
             background-color: #211;
             border: 2px solid #fff;
         }
+        #controls {
+            margin-top: 20px;
+        }
+        .btn {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 24px;
+            text-align: center;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .row {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas" width="500" height="400"></canvas>
+
+    <!-- Controles táctiles -->
+    <div id="controls">
+        <div class="row">
+            <button class="btn" id="up">↑</button>
+        </div>
+        <div class="row">
+            <button class="btn" id="left">←</button>
+            <button class="btn" id="down">↓</button>
+            <button class="btn" id="right">→</button>
+        </div>
+    </div>
+
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -40,6 +73,11 @@
         };
 
         document.addEventListener('keydown', direction);
+        // Controles táctiles
+        document.getElementById('up').addEventListener('click', () => { if (d !== 'DOWN') d = 'UP'; });
+        document.getElementById('down').addEventListener('click', () => { if (d !== 'UP') d = 'DOWN'; });
+        document.getElementById('left').addEventListener('click', () => { if (d !== 'RIGHT') d = 'LEFT'; });
+        document.getElementById('right').addEventListener('click', () => { if (d !== 'LEFT') d = 'RIGHT'; });
 
         function direction(event) {
             if (event.keyCode === 37 && d !== 'RIGHT') d = 'LEFT';
